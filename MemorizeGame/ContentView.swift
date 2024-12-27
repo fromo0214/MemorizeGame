@@ -19,7 +19,7 @@ struct ContentView: View {
         //H stack stands for horizontal stack, child views are placed side by side.
         HStack {
             CardView(isFaceUp: true, cardFace: "👻")
-            CardView(cardFace: "🙈")
+            CardView(isFaceUp: true, cardFace: "🙈")
             CardView(cardFace: "🤡")
             CardView(cardFace: "💩")
         }
@@ -31,28 +31,34 @@ struct ContentView: View {
     }
 }
 
+//Views are immutable
 struct CardView: View {
-    var isFaceUp: Bool = false
+    @State var isFaceUp: Bool = false
     var cardFace: String
     
     
     var body: some View {
-        ZStack(content: {
+        ZStack{
+            //creating a local variable
+            let base: RoundedRectangle = RoundedRectangle(cornerRadius: 12)
             
             //Everything below is basically a function
             //these functions are called view modifiers
             //create another rectangle because it is not possible fill a rectangle and have a outline, in case if a user has dark mode enabled and cannot see the card
             if isFaceUp{
-                RoundedRectangle(cornerRadius: 12)
+                base.fill()
                     .foregroundColor(.white)
-                RoundedRectangle(cornerRadius: 12)
+                base
                 //strokeBorder creates an outline/trim
                     .strokeBorder(style: StrokeStyle(lineWidth: 5))
                 Text(cardFace).font(.largeTitle)
             }else{
-                RoundedRectangle(cornerRadius: 12)
+                base.fill()
             }
-        })
+        }//takes a function to execute when someone taps
+        .onTapGesture {
+            isFaceUp.toggle()
+        }
         }
     }
 
