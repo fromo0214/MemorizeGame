@@ -16,12 +16,17 @@ struct ContentView: View {
     //to behave like a view you need var body
     //"some View" means look for a view and if you find it return it
     var body: some View {
+        let emojis: [String] = ["👻", "🙈", "🤡", "💩", "👻"]
+
         //H stack stands for horizontal stack, child views are placed side by side.
         HStack {
-            CardView(isFaceUp: true, cardFace: "👻")
-            CardView(isFaceUp: true, cardFace: "🙈")
-            CardView(cardFace: "🤡")
-            CardView(cardFace: "💩")
+            ForEach(emojis.indices, id: \.self){ index in
+                CardView(cardFace: emojis[index])
+            }
+//            CardView(cardFace: emojis[0])
+//            CardView(cardFace: emojis[1])
+//            CardView(cardFace: emojis[2])
+//            CardView(cardFace: emojis[3])
         }
         //ZStack is towards the user, basically up and down
         
@@ -33,8 +38,8 @@ struct ContentView: View {
 
 //Views are immutable
 struct CardView: View {
-    @State var isFaceUp: Bool = false
-    var cardFace: String
+    @State var isFaceUp: Bool = true
+    let cardFace: String
     
     
     var body: some View {
