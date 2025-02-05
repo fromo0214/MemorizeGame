@@ -4,7 +4,7 @@
 //
 //  Created by Fernando Romo on 12/14/24.
 //
-
+//View
 import SwiftUI
 
 struct EmojiMemoryView: View {
@@ -31,7 +31,11 @@ struct EmojiMemoryView: View {
                 //            Spacer()
                 //            cardCountAdjusters
             }
-            Button("Shuffle"){
+//            Button("Shuffle"){
+//                viewModel.shuffle()
+//            }.font(.largeTitle)
+            Button("New Game"){
+                viewModel.newGame()
                 viewModel.shuffle()
             }.font(.largeTitle)
         }
@@ -64,7 +68,7 @@ struct EmojiMemoryView: View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 85), spacing: 0)], spacing: 0){
             //id:  \.self
             ForEach(viewModel.cards){ card in
-                CardView(card)
+                CardView(card, cardColor: Color(viewModel.selectedTheme.cardColor))
                     .aspectRatio(2/3, contentMode: .fit)
                     .padding(4)
                     .onTapGesture {
@@ -72,7 +76,9 @@ struct EmojiMemoryView: View {
                     }
             }
             //Color is a struct and .blue is a non private static var
-        }.foregroundColor(Color.blue)
+        }.onAppear{
+            print("Number of cards:", viewModel.cards.count)
+        } //.foregroundColor(selectedTheme.cardColor)
     }
     
     
@@ -126,40 +132,34 @@ struct CardView: View {
 //    @State var isFaceUp: Bool = false
 //    let cardFace: String
     let card: MemorizeGameLogic<String>.Card
+    let cardColor: Color
     
-    init(_ card: MemorizeGameLogic<String>.Card) {
+    init(_ card: MemorizeGameLogic<String>.Card, cardColor: Color) {
         self.card = card
+        self.cardColor = cardColor
     }
     
     var body: some View {
-        ZStack{
-            //creating a local variable
-            let base: RoundedRectangle = RoundedRectangle(cornerRadius: 12)
-            
-            //Everything below is basically a function
-            //these functions are called view modifiers
-            //create another rectangle because it is not possible fill a rectangle and have a outline, in case if a user has dark mode enabled and cannot see the card
-            Group{
-                base.fill()
-                    .foregroundColor(.white)
-                base
-                //strokeBorder creates an outline/trim
-                    .strokeBorder(style: StrokeStyle(lineWidth: 5))
-                Text(card.content)
-                    //Change size of the emojis
-                    .font(Font.system(size: 200))
-                    //If this font is too big it can be scaled down, does vertical size.
-                    .minimumScaleFactor(0.01)
-                    //aspect ratio
-                    .aspectRatio(1, contentMode: .fit)
-            }
-            .opacity(card.isFaceUp ? 1 : 0)
-            base.fill().opacity(card.isFaceUp ? 0 : 1)
-        }//takes a function to execute when someone taps
-//        .onTapGesture {
-//            isFaceUp.toggle()
-//        }
-        }
+           ZStack {
+               let base = RoundedRectangle(cornerRadius: 12)
+               
+               if !card.isFaceUp || !card.isMatched {
+                   Group {
+                       base.fill().foregroundColor(.white)
+                       base.strokeBorder(cardColor, lineWidth: 5)
+                       Text(card.content)
+                           .font(Font.system(size: 200)) // ✅ Reduce size for visibility
+                           .minimumScaleFactor(0.1)
+                           .aspectRatio(1, contentMode: .fit)
+                   }
+                   base.fill(cardColor).opacity(card.isFaceUp ? 0 : 1)
+               }
+           }
+           .opacity(card.isFaceUp || !card.isMatched ? 1 : 0)
+           .onAppear {
+               print("Rendering card:", card.content) // ✅ Debug print
+           }
+       }
     }
 
 
