@@ -6,14 +6,14 @@ class EmojiMemorizeGame: ObservableObject {
     struct Theme {
         let name: String
         let emojis: [String]
-        let cardColor: String
+        let cardColor: Color
     }
     
     private static let themes: [Theme] = [
-        .init(name: "Animals", emojis: ["🐶", "🐭", "🐰", "🐻", "🐨", "🐸", "🐵"], cardColor: "blue"),
-        .init(name: "Food", emojis: ["🍎", "🍊", "🍋", "🍌", "🍉", "🍇"], cardColor: "red"),
-        .init(name: "Halloween", emojis: ["🎃", "👻", "🕷", "🦇", "🧙‍♀️", "🕸"], cardColor: "orange"),
-        .init(name: "Flags", emojis: ["🇮🇹", "🇩🇪", "🇪🇸", "🇫🇷", "🇬🇧", "🇩🇰"], cardColor: "yellow")
+        .init(name: "Animals", emojis: ["🐶", "🐭", "🐰", "🐻", "🐨", "🐸", "🐵"], cardColor: .blue),
+        .init(name: "Food", emojis: ["🍎", "🍊", "🍋", "🍌", "🍉", "🍇"], cardColor: .red),
+        .init(name: "Halloween", emojis: ["🎃", "👻", "🕷", "🦇", "🧙‍♀️", "🕸"], cardColor: .orange),
+        .init(name: "Flags", emojis: ["🇮🇹", "🇩🇪", "🇪🇸", "🇫🇷", "🇬🇧", "🇩🇰"], cardColor: .yellow)
     ]
     
     @Published var selectedTheme: Theme

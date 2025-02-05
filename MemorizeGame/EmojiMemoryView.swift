@@ -25,6 +25,7 @@ struct EmojiMemoryView: View {
         //Vstack stands for vertical stack
 //            Text("Memorize!").font(.largeTitle)
         VStack{
+            Text("Theme: " + viewModel.selectedTheme.name).font(.title)
             ScrollView{
                 cards
                     .animation(.default, value: viewModel.cards)
@@ -143,21 +144,23 @@ struct CardView: View {
            ZStack {
                let base = RoundedRectangle(cornerRadius: 12)
                
-               if !card.isFaceUp || !card.isMatched {
+               if card.isFaceUp {
                    Group {
                        base.fill().foregroundColor(.white)
                        base.strokeBorder(cardColor, lineWidth: 5)
                        Text(card.content)
-                           .font(Font.system(size: 200)) // ✅ Reduce size for visibility
+                           .font(Font.system(size: 40)) // ✅ Reduce size for visibility
                            .minimumScaleFactor(0.1)
                            .aspectRatio(1, contentMode: .fit)
                    }
-                   base.fill(cardColor).opacity(card.isFaceUp ? 0 : 1)
+               }else{
+                   base.fill(cardColor)
+                   base.strokeBorder(cardColor, lineWidth: 4)
                }
            }
-           .opacity(card.isFaceUp || !card.isMatched ? 1 : 0)
+           .opacity(card.isMatched ? 0 : 1) //hide matched cards
            .onAppear {
-               print("Rendering card:", card.content) // ✅ Debug print
+               print("Rendering card:", card.content) //Debug print
            }
        }
     }
