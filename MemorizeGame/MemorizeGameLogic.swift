@@ -17,7 +17,7 @@ struct MemorizeGameLogic<CardContent> where CardContent: Equatable{
         cards = []
         //add number of pairs of cards x 2 cards
         //creates duplicates of cards
-        for pairIndex in 0..<max(2, numberOfPairsOfCards){
+    for pairIndex in 0..<max(2, numberOfPairsOfCards){
             let content = cardContentFactory(pairIndex)
             print("Initializing card with content:", content)
             
@@ -49,6 +49,8 @@ struct MemorizeGameLogic<CardContent> where CardContent: Equatable{
 //            }
         }
     }
+    
+    
     
     mutating func choose(_ card: Card){
         print("chose \(card)")
@@ -104,6 +106,7 @@ struct MemorizeGameLogic<CardContent> where CardContent: Equatable{
         }
     }
     
+    
     struct Card: Equatable, Identifiable, CustomDebugStringConvertible{
         //Equatable checks to see if a card == card and returns a boolean if it is true or false
 //        static func == (lhs: Card, rhs: Card) -> Bool {
@@ -121,6 +124,8 @@ struct MemorizeGameLogic<CardContent> where CardContent: Equatable{
         }
     }
 }
+
+    
 
 //Adds a computer property to all arrays
 //The property returns the only element in the array if the array has exactly one element

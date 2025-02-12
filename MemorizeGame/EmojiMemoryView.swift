@@ -21,7 +21,7 @@ struct EmojiMemoryView: View {
     //to behave like a view you need var body
     //"some View" means look for a view and if you find it return it
     var body: some View {
-
+        
         //Vstack stands for vertical stack
 //            Text("Memorize!").font(.largeTitle)
         VStack{
@@ -35,6 +35,7 @@ struct EmojiMemoryView: View {
 //            Button("Shuffle"){
 //                viewModel.shuffle()
 //            }.font(.largeTitle)
+            Text("Score: \(viewModel.player.score)").font(.title)
             Button("New Game"){
                 viewModel.newGame()
                 viewModel.shuffle()
