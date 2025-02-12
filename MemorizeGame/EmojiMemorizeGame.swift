@@ -77,10 +77,9 @@ class EmojiMemorizeGame: ObservableObject {
             player.score -= 1
         }else{
             player.seenCards.insert(card.id)
-            
-            if let potentialMatchIndex = model.indexOfTheOneAndOnlyFaceUpCard, model.cards[potentialMatchIndex].content == card.content{
-                player.score += 2
-            }
+        }
+        if let potentialMatchIndex = model.indexOfTheOneAndOnlyFaceUpCard, model.cards[potentialMatchIndex].content == card.content{
+            player.score += 2
         }
         
         
