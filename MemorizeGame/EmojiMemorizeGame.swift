@@ -20,7 +20,7 @@ class EmojiMemorizeGame: ObservableObject {
         .init(name: "Animals", emojis: ["🐶", "🐭", "🐰", "🐻", "🐨", "🐸", "🐵"], cardColor: .blue),
         .init(name: "Food", emojis: ["🍎", "🍊", "🍋", "🍌", "🍉", "🍇", "🍔"], cardColor: .red),
         .init(name: "Halloween", emojis: ["🎃", "👻", "🕷", "🦇", "🧙‍♀️", "🕸", "👺"], cardColor: .orange),
-        .init(name: "Flags", emojis: ["🇮🇹", "🇩🇪", "🇪🇸", "🇫🇷", "🇬🇧", "🇩🇰", "🇺🇸"], cardColor: .yellow)
+        .init(name: "Flags", emojis: ["🇮🇹", "🇩🇪", "🇪🇸", "🇫🇷", "🇬🇧", "🇩🇰", "🇺🇸", "🇳🇱", "🇦🇹", "🇧🇪"], cardColor: .yellow)
     ]
     @Published var selectedTheme: Theme
     @Published private var model: MemorizeGameLogic<String>
